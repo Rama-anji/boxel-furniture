@@ -1,0 +1,47 @@
+# Render Blueprint: Dashboard → New → Blueprint → pick this repo.
+# Render has no managed MySQL, so point the DB_* variables at an external MySQL 8
+# database (Aiven, TiDB Cloud, Railway…) and load database/schema.sql into it first.
+services:
+  - type: web
+    name: boxel-furniture
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm ci --prefix server --omit=dev && npm ci --prefix client --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true
+      # Your public URL, e.g. https://boxel-furniture.onrender.com
+      - key: CLIENT_URL
+        sync: false
+      - key: API_URL
+        sync: false
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        value: boxel_store
+      - key: DB_SSL
+        value: "true"
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM_EMAIL
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false

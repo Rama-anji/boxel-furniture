@@ -40,6 +40,8 @@ export const env = {
     user: str('DB_USER', 'root'),
     password: process.env.DB_PASSWORD ?? '',
     database: str('DB_NAME', 'boxel_store'),
+    // Hosted MySQL providers (Aiven, TiDB Cloud…) require TLS.
+    ssl: bool('DB_SSL', false),
   },
 
   session: {
