@@ -42,6 +42,8 @@ export const env = {
     database: str('DB_NAME', 'boxel_store'),
     // Hosted MySQL providers (Aiven, TiDB Cloud…) require TLS.
     ssl: bool('DB_SSL', false),
+    // PEM text of the provider's CA certificate (Aiven signs with a per-project CA).
+    sslCa: (process.env.DB_SSL_CA ?? '').replace(/\\n/g, '\n').trim(),
   },
 
   session: {

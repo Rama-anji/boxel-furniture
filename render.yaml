@@ -35,6 +35,9 @@ services:
         value: boxel_store
       - key: DB_SSL
         value: "true"
+      # Aiven project CA certificate (PEM text)
+      - key: DB_SSL_CA
+        sync: false
       - key: SMTP_HOST
         sync: false
       - key: SMTP_USER
